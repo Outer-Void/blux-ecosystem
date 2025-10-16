@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/blux-eco-logo.png" alt="BLUX Ecosystem" width="600">
+</p>
+
 # BLUX Ecosystem Hub
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
