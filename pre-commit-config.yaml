@@ -1,0 +1,89 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: mixed-line-ending
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-docstrings]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.0-alpha.9-for-node-20
+    hooks:
+      - id: prettier
+        types_or: [javascript, jsx, ts, tsx, json, yaml, yml, md, markdown]
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.44.0
+    hooks:
+      - id: eslint
+        files: \.(js|ts|jsx|tsx)$
+        types: [file]
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: shellcheck
+        args: ["--severity=warning"]
+
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.5.1
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
+      - id: poetry-install
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.5.3
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: local
+    hooks:
+      - id: anchor-validation
+        name: Check anchor consistency
+        entry: ./scripts/anchor-list.sh
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: security-scan
+        name: Security dependency check
+        entry: ./tools/dependency-check.sh
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: config-validation
+        name: Validate configuration files
+        entry: python tools/config-validator.py --check
+        language: system
+        pass_filenames: false
+        always_run: true

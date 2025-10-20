@@ -1,0 +1,63 @@
+name: Release BLUX
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Validate version
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        echo "Releasing version: $VERSION"
+        
+        # Verify version matches changelog
+        if ! grep -q "## \[${VERSION#v}\]" CHANGELOG.md; then
+          echo "Error: Version $VERSION not found in CHANGELOG.md"
+          exit 1
+        fi
+        
+    - name: Run full test suite
+      run: |
+        ./scripts/health-check.sh
+        python tools/config-validator.py
+        ./tools/dependency-check.sh
+        
+    - name: Create release package
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        PACKAGE_NAME="blux-ecosystem-${VERSION}"
+        
+        # Create clean package
+        mkdir $PACKAGE_NAME
+        cp -r scripts docs manifests config *.md LICENSE .github $PACKAGE_NAME/
+        
+        # Create archive
+        tar czf $PACKAGE_NAME.tar.gz $PACKAGE_NAME/
+        
+        # Generate checksums
+        sha256sum $PACKAGE_NAME.tar.gz > $PACKAGE_NAME.tar.gz.sha256
+        
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          blux-ecosystem-*.tar.gz
+          blux-ecosystem-*.tar.gz.sha256
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

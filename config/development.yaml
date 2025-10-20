@@ -1,0 +1,21 @@
+# BLUX Development Configuration
+environment: development
+
+logging:
+  level: debug
+  format: json
+
+security:
+  require_authentication: false
+  sandbox_execution: true
+
+services:
+  blux_reg:
+    host: localhost
+    port: 50050
+  blux_guard:
+    host: localhost
+    port: 50052
+  blux_lite:
+    host: localhost
+    port: 50051
