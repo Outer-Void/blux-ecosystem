@@ -2,6 +2,8 @@
   <img src="/assets/blux-eco-logo.png" alt="BLUX Ecosystem" width="260">
 </p>
 
+---
+
 # BLUX Ecosystem — Gravitational Hub
 
 > *Reflection > Reaction · Coordination > Concentration · Coherence > Complexity · Principles > Preferences*
