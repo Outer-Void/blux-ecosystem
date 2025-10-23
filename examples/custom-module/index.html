@@ -1,0 +1,2227 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Enterprise documentation hub for the BLUX constellation">
+      
+      
+      
+        <link rel="canonical" href="https://outer-void.github.io/blux-ecosystem/examples/custom-module/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Custom Module Development Guide - BLUX Ecosystem</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-module-development-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BLUX Ecosystem" class="md-header__button md-logo" aria-label="BLUX Ecosystem" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BLUX Ecosystem
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Module Development Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Outer-Void/blux-ecosystem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Outer-Void/blux-ecosystem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../VISION/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Vision
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ARCHITECTURE/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../INSTALL/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Install
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../OPERATIONS/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Operations
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../SECURITY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Security
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../PRIVACY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Privacy
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CONFIGURATION/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../TROUBLESHOOTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Troubleshooting
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../GOVERNANCE/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Governance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../SUPPORT/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Support
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ROADMAP/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CHANGELOG/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Change Log
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../modules/blux-lite/" class="md-tabs__link">
+          
+  
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BLUX Ecosystem" class="md-nav__button md-logo" aria-label="BLUX Ecosystem" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BLUX Ecosystem
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Outer-Void/blux-ecosystem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Outer-Void/blux-ecosystem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VISION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vision
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../INSTALL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OPERATIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SECURITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PRIVACY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Privacy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONFIGURATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TROUBLESHOOTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GOVERNANCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Governance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUPPORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ROADMAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Roadmap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Change Log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-ca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX cA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Guard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-quantum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Quantum (CLI)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-doctrine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Doctrine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-commander/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Commander
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/blux-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BLUX Reg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module Template
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module Manifest
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="custom-module-development-guide">Custom Module Development Guide<a class="headerlink" href="#custom-module-development-guide" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Learn how to create custom modules that integrate with the BLUX Ecosystem while following BLUX principles and patterns.</p>
+<h2 id="module-template">Module Template<a class="headerlink" href="#module-template" title="Permanent link">&para;</a></h2>
+<h3 id="basic-structure">Basic Structure<a class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h3>
+<pre><code>
+my-blux-module/
+├──README.md
+├──pyproject.toml              # Python project config
+├──Dockerfile
+├──.dockerignore
+├──.gitignore
+├──manifests/
+│├── module.manifest.json
+│└── doctrine.policy.json
+├──src/
+│└── my_blux_module/
+│├── init.py
+│├── core.py
+│├── api.py
+│├── models.py
+│└── config.py
+├──tests/
+│├── init.py
+│├── test_core.py
+│├── test_api.py
+│└── conftest.py
+├──scripts/
+│├── bootstrap.sh
+│├── health-check.sh
+│└── deploy.sh
+└──docs/
+├── integration.md
+└── api.md
+
+</code></pre>
+<h3 id="module-manifest">Module Manifest<a class="headerlink" href="#module-manifest" title="Permanent link">&para;</a></h3>
+<pre><code class="language-json">{
+  &quot;module&quot;: {
+    &quot;name&quot;: &quot;my-blux-module&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;description&quot;: &quot;Custom BLUX module for specialized processing&quot;,
+    &quot;type&quot;: &quot;processor&quot;,
+    &quot;capabilities&quot;: [&quot;data_transformation&quot;, &quot;custom_analysis&quot;],
+    &quot;requirements&quot;: {
+      &quot;blux-lite&quot;: &quot;&gt;=1.0.0&quot;,
+      &quot;blux-guard&quot;: &quot;&gt;=1.0.0&quot;
+    }
+  },
+  &quot;integration&quot;: {
+    &quot;events&quot;: {
+      &quot;consumes&quot;: [&quot;task.assigned&quot;, &quot;data.available&quot;],
+      &quot;produces&quot;: [&quot;task.completed&quot;, &quot;analysis.ready&quot;]
+    },
+    &quot;apis&quot;: {
+      &quot;provided&quot;: [&quot;/v1/analyze&quot;, &quot;/v1/transform&quot;],
+      &quot;required&quot;: [&quot;/v1/tasks&quot;, &quot;/v1/audit&quot;]
+    }
+  },
+  &quot;security&quot;: {
+    &quot;authentication&quot;: &quot;required&quot;,
+    &quot;audit_level&quot;: &quot;detailed&quot;,
+    &quot;data_handling&quot;: &quot;encrypted&quot;
+  }
+}
+</code></pre>
+<p>Core Module Implementation</p>
+<p>Basic Module Class</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+ANCHOR: module_core
+&quot;&quot;&quot;
+import asyncio
+import logging
+from typing import Dict, Any, Optional
+from dataclasses import dataclass
+from enum import Enum
+
+class ModuleStatus(Enum):
+    INITIALIZING = &quot;initializing&quot;
+    READY = &quot;ready&quot;
+    PROCESSING = &quot;processing&quot;
+    ERROR = &quot;error&quot;
+
+@dataclass
+class ModuleConfig:
+    &quot;&quot;&quot;Module configuration.&quot;&quot;&quot;
+    name: str
+    version: str
+    blux_lite_host: str = &quot;localhost:50051&quot;
+    blux_guard_host: str = &quot;localhost:50052&quot;
+    max_concurrent_tasks: int = 10
+    enable_audit: bool = True
+
+class BLUXModule:
+    &quot;&quot;&quot;
+    Base class for BLUX modules.
+    Provides common functionality and integration patterns.
+    &quot;&quot;&quot;
+
+    def __init__(self, config: ModuleConfig):
+        self.config = config
+        self.status = ModuleStatus.INITIALIZING
+        self.logger = logging.getLogger(self.config.name)
+        self.task_queue = asyncio.Queue()
+        self.active_tasks: Dict[str, asyncio.Task] = {}
+
+    async def initialize(self) -&gt; None:
+        &quot;&quot;&quot;Initialize the module.&quot;&quot;&quot;
+        self.logger.info(f&quot;Initializing {self.config.name} v{self.config.version}&quot;)
+
+        # Register with BLUX ecosystem
+        await self._register_module()
+
+        # Start task processor
+        asyncio.create_task(self._process_tasks())
+
+        self.status = ModuleStatus.READY
+        self.logger.info(&quot;Module initialized and ready&quot;)
+
+    async def _register_module(self) -&gt; None:
+        &quot;&quot;&quot;Register module with BLUX ecosystem.&quot;&quot;&quot;
+        # This would typically call blux-lite registration endpoint
+        registration_data = {
+            &quot;module&quot;: self.config.name,
+            &quot;version&quot;: self.config.version,
+            &quot;capabilities&quot;: self.get_capabilities(),
+            &quot;endpoints&quot;: self.get_endpoints()
+        }
+
+        self.logger.debug(f&quot;Registering module: {registration_data}&quot;)
+        # Implementation would go here
+
+    def get_capabilities(self) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Return module capabilities.&quot;&quot;&quot;
+        return {
+            &quot;data_processing&quot;: True,
+            &quot;custom_analysis&quot;: True,
+            &quot;audit_integration&quot;: self.config.enable_audit
+        }
+
+    def get_endpoints(self) -&gt; Dict[str, str]:
+        &quot;&quot;&quot;Return module API endpoints.&quot;&quot;&quot;
+        return {
+            &quot;health&quot;: &quot;/health&quot;,
+            &quot;process&quot;: &quot;/v1/process&quot;,
+            &quot;status&quot;: &quot;/v1/status&quot;
+        }
+
+    async def process_task(self, task_data: Dict[str, Any]) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;
+        Process a task - to be implemented by specific modules.
+
+        Args:
+            task_data: Task data from BLUX Lite
+
+        Returns:
+            Processing results
+        &quot;&quot;&quot;
+        raise NotImplementedError(&quot;Subclasses must implement process_task&quot;)
+
+    async def _process_tasks(self) -&gt; None:
+        &quot;&quot;&quot;Background task processing loop.&quot;&quot;&quot;
+        while True:
+            try:
+                task_id, task_data = await self.task_queue.get()
+
+                # Limit concurrent tasks
+                if len(self.active_tasks) &gt;= self.config.max_concurrent_tasks:
+                    await asyncio.sleep(0.1)
+                    self.task_queue.put_nowait((task_id, task_data))
+                    continue
+
+                # Process task
+                task = asyncio.create_task(
+                    self._process_single_task(task_id, task_data)
+                )
+                self.active_tasks[task_id] = task
+
+            except Exception as e:
+                self.logger.error(f&quot;Task processing error: {e}&quot;)
+
+    async def _process_single_task(self, task_id: str, task_data: Dict[str, Any]) -&gt; None:
+        &quot;&quot;&quot;Process a single task with error handling.&quot;&quot;&quot;
+        try:
+            self.logger.info(f&quot;Processing task {task_id}&quot;)
+
+            # Record audit entry
+            audit_id = await self._record_audit(&quot;task.start&quot;, {&quot;task_id&quot;: task_id})
+
+            # Process the task
+            result = await self.process_task(task_data)
+
+            # Record completion
+            await self._record_audit(&quot;task.complete&quot;, {
+                &quot;task_id&quot;: task_id,
+                &quot;audit_id&quot;: audit_id,
+                &quot;result&quot;: result
+            })
+
+            self.logger.info(f&quot;Completed task {task_id}&quot;)
+
+        except Exception as e:
+            self.logger.error(f&quot;Task {task_id} failed: {e}&quot;)
+            await self._record_audit(&quot;task.error&quot;, {
+                &quot;task_id&quot;: task_id,
+                &quot;error&quot;: str(e)
+            })
+
+        finally:
+            # Cleanup
+            self.active_tasks.pop(task_id, None)
+            self.task_queue.task_done()
+
+    async def _record_audit(self, operation: str, data: Dict[str, Any]) -&gt; str:
+        &quot;&quot;&quot;Record audit entry.&quot;&quot;&quot;
+        if not self.config.enable_audit:
+            return &quot;audit_disabled&quot;
+
+        # This would integrate with blux-guard audit system
+        audit_entry = {
+            &quot;timestamp&quot;: asyncio.get_event_loop().time(),
+            &quot;module&quot;: self.config.name,
+            &quot;operation&quot;: operation,
+            &quot;data&quot;: data
+        }
+
+        self.logger.debug(f&quot;Audit entry: {audit_entry}&quot;)
+        return f&quot;aud_{hash(str(audit_entry))}&quot;
+
+    async def health_check(self) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Return module health status.&quot;&quot;&quot;
+        return {
+            &quot;status&quot;: self.status.value,
+            &quot;module&quot;: self.config.name,
+            &quot;version&quot;: self.config.version,
+            &quot;active_tasks&quot;: len(self.active_tasks),
+            &quot;queue_size&quot;: self.task_queue.qsize()
+        }
+&quot;&quot;&quot;
+ANCHOR_END: module_core
+&quot;&quot;&quot;
+</code></pre>
+<p>Specialized Module Implementation</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+ANCHOR: specialized_module
+&quot;&quot;&quot;
+import json
+from typing import Dict, Any, List
+import pandas as pd  # Example dependency
+
+class DataAnalysisModule(BLUXModule):
+    &quot;&quot;&quot;
+    Specialized module for data analysis tasks.
+    Extends the base BLUXModule with analysis capabilities.
+    &quot;&quot;&quot;
+
+    def __init__(self, config: ModuleConfig):
+        super().__init__(config)
+        self.analysis_cache = {}
+
+    def get_capabilities(self) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Return analysis-specific capabilities.&quot;&quot;&quot;
+        base_capabilities = super().get_capabilities()
+        base_capabilities.update({
+            &quot;statistical_analysis&quot;: True,
+            &quot;pattern_detection&quot;: True,
+            &quot;data_visualization&quot;: False,  # Could be enabled in future
+            &quot;machine_learning&quot;: False
+        })
+        return base_capabilities
+
+    async def process_task(self, task_data: Dict[str, Any]) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;
+        Process data analysis task.
+
+        Expected task_data format:
+        {
+            &quot;analysis_type&quot;: &quot;statistical|pattern|trend&quot;,
+            &quot;data&quot;: {...} or &quot;data_reference&quot;: &quot;...&quot;,
+            &quot;parameters&quot;: {...}
+        }
+        &quot;&quot;&quot;
+        analysis_type = task_data.get(&quot;analysis_type&quot;, &quot;statistical&quot;)
+
+        # Extract data
+        data = await self._extract_data(task_data)
+
+        # Perform analysis based on type
+        if analysis_type == &quot;statistical&quot;:
+            result = await self._statistical_analysis(data, task_data.get(&quot;parameters&quot;, {}))
+        elif analysis_type == &quot;pattern&quot;:
+            result = await self._pattern_analysis(data, task_data.get(&quot;parameters&quot;, {}))
+        elif analysis_type == &quot;trend&quot;:
+            result = await self._trend_analysis(data, task_data.get(&quot;parameters&quot;, {}))
+        else:
+            raise ValueError(f&quot;Unknown analysis type: {analysis_type}&quot;)
+
+        return {
+            &quot;analysis_type&quot;: analysis_type,
+            &quot;result&quot;: result,
+            &quot;metadata&quot;: {
+                &quot;data_points&quot;: len(data) if hasattr(data, '__len__') else 1,
+                &quot;processing_time&quot;: 0.1  # Would be actual timing
+            }
+        }
+
+    async def _extract_data(self, task_data: Dict[str, Any]) -&gt; Any:
+        &quot;&quot;&quot;Extract data from task data or reference.&quot;&quot;&quot;
+        if &quot;data&quot; in task_data:
+            return task_data[&quot;data&quot;]
+        elif &quot;data_reference&quot; in task_data:
+            # Would fetch from data service
+            return await self._fetch_data(task_data[&quot;data_reference&quot;])
+        else:
+            raise ValueError(&quot;No data or data_reference provided&quot;)
+
+    async def _fetch_data(self, data_reference: str) -&gt; Any:
+        &quot;&quot;&quot;Fetch data from reference (would integrate with data services).&quot;&quot;&quot;
+        # Mock implementation
+        return {&quot;sample&quot;: &quot;data&quot;, &quot;values&quot;: [1, 2, 3, 4, 5]}
+
+    async def _statistical_analysis(self, data: Any, parameters: Dict) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Perform statistical analysis.&quot;&quot;&quot;
+        if isinstance(data, dict) and 'values' in data:
+            values = data['values']
+            return {
+                &quot;mean&quot;: sum(values) / len(values),
+                &quot;std_dev&quot;: (sum((x - sum(values)/len(values))**2 for x in values) / len(values))**0.5,
+                &quot;min&quot;: min(values),
+                &quot;max&quot;: max(values),
+                &quot;count&quot;: len(values)
+            }
+        else:
+            return {&quot;error&quot;: &quot;Unsupported data format for statistical analysis&quot;}
+
+    async def _pattern_analysis(self, data: Any, parameters: Dict) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Perform pattern analysis.&quot;&quot;&quot;
+        # Simplified pattern detection
+        if isinstance(data, dict) and 'values' in data:
+            values = data['values']
+            patterns = []
+
+            # Simple pattern: increasing sequence
+            if all(values[i] &lt; values[i+1] for i in range(len(values)-1)):
+                patterns.append(&quot;increasing_sequence&quot;)
+
+            # Simple pattern: decreasing sequence  
+            if all(values[i] &gt; values[i+1] for i in range(len(values)-1)):
+                patterns.append(&quot;decreasing_sequence&quot;)
+
+            return {&quot;patterns_detected&quot;: patterns, &quot;pattern_count&quot;: len(patterns)}
+        else:
+            return {&quot;error&quot;: &quot;Unsupported data format for pattern analysis&quot;}
+
+    async def _trend_analysis(self, data: Any, parameters: Dict) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Perform trend analysis.&quot;&quot;&quot;
+        if isinstance(data, dict) and 'values' in data:
+            values = data['values']
+            if len(values) &gt;= 2:
+                trend = &quot;increasing&quot; if values[-1] &gt; values[0] else &quot;decreasing&quot;
+                change_percentage = ((values[-1] - values[0]) / values[0]) * 100
+
+                return {
+                    &quot;trend&quot;: trend,
+                    &quot;change_percentage&quot;: change_percentage,
+                    &quot;initial_value&quot;: values[0],
+                    &quot;final_value&quot;: values[-1]
+                }
+            else:
+                return {&quot;error&quot;: &quot;Insufficient data for trend analysis&quot;}
+        else:
+            return {&quot;error&quot;: &quot;Unsupported data format for trend analysis&quot;}
+&quot;&quot;&quot;
+ANCHOR_END: specialized_module
+&quot;&quot;&quot;
+</code></pre>
+<p>API Implementation</p>
+<p>FastAPI Integration</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+ANCHOR: module_api
+&quot;&quot;&quot;
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
+# Pydantic models for API
+class TaskRequest(BaseModel):
+    analysis_type: str = Field(..., description=&quot;Type of analysis to perform&quot;)
+    data: Optional[Dict[str, Any]] = Field(None, description=&quot;Direct data input&quot;)
+    data_reference: Optional[str] = Field(None, description=&quot;Reference to external data&quot;)
+    parameters: Dict[str, Any] = Field(default_factory=dict, description=&quot;Analysis parameters&quot;)
+
+class TaskResponse(BaseModel):
+    task_id: str = Field(..., description=&quot;Unique task identifier&quot;)
+    status: str = Field(..., description=&quot;Task status&quot;)
+    audit_id: str = Field(..., description=&quot;Audit trail identifier&quot;)
+
+class HealthResponse(BaseModel):
+    status: str = Field(..., description=&quot;Module status&quot;)
+    module: str = Field(..., description=&quot;Module name&quot;)
+    version: str = Field(..., description=&quot;Module version&quot;)
+    active_tasks: int = Field(..., description=&quot;Number of active tasks&quot;)
+    queue_size: int = Field(..., description=&quot;Tasks waiting in queue&quot;)
+
+class AnalysisModuleAPI:
+    &quot;&quot;&quot;
+    FastAPI wrapper for BLUX modules.
+    Provides RESTful API for module interaction.
+    &quot;&quot;&quot;
+
+    def __init__(self, module: BLUXModule, title: str = &quot;BLUX Module API&quot;):
+        self.module = module
+        self.app = FastAPI(title=title, version=module.config.version)
+
+        # Configure CORS
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=[&quot;*&quot;],  # Configure appropriately
+            allow_credentials=True,
+            allow_methods=[&quot;*&quot;],
+            allow_headers=[&quot;*&quot;],
+        )
+
+        self._setup_routes()
+
+    def _setup_routes(self) -&gt; None:
+        &quot;&quot;&quot;Setup API routes.&quot;&quot;&quot;
+
+        @self.app.get(&quot;/health&quot;, response_model=HealthResponse)
+        async def health_check():
+            &quot;&quot;&quot;Health check endpoint.&quot;&quot;&quot;
+            return await self.module.health_check()
+
+        @self.app.post(&quot;/v1/analyze&quot;, response_model=TaskResponse)
+        async def analyze_data(
+            request: TaskRequest,
+            background_tasks: BackgroundTasks
+        ):
+            &quot;&quot;&quot;Submit data for analysis.&quot;&quot;&quot;
+            try:
+                # Generate task ID
+                task_id = f&quot;task_{hash(str(request.dict()))}&quot;
+
+                # Submit for processing
+                await self.module.task_queue.put((task_id, request.dict()))
+
+                return TaskResponse(
+                    task_id=task_id,
+                    status=&quot;submitted&quot;,
+                    audit_id=f&quot;aud_{task_id}&quot;
+                )
+
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=str(e))
+
+        @self.app.get(&quot;/v1/tasks/{task_id}&quot;)
+        async def get_task_status(task_id: str):
+            &quot;&quot;&quot;Get task status.&quot;&quot;&quot;
+            if task_id in self.module.active_tasks:
+                return {&quot;task_id&quot;: task_id, &quot;status&quot;: &quot;processing&quot;}
+            else:
+                return {&quot;task_id&quot;: task_id, &quot;status&quot;: &quot;completed&quot;}  # Simplified
+
+        @self.app.get(&quot;/capabilities&quot;)
+        async def get_capabilities():
+            &quot;&quot;&quot;Get module capabilities.&quot;&quot;&quot;
+            return self.module.get_capabilities()
+
+# Usage example
+def create_api() -&gt; FastAPI:
+    &quot;&quot;&quot;Create and configure the API instance.&quot;&quot;&quot;
+    config = ModuleConfig(
+        name=&quot;data-analysis-module&quot;,
+        version=&quot;1.0.0&quot;,
+        max_concurrent_tasks=5
+    )
+
+    module = DataAnalysisModule(config)
+    api = AnalysisModuleAPI(module)
+
+    # Add startup event to initialize module
+    @api.app.on_event(&quot;startup&quot;)
+    async def startup_event():
+        await module.initialize()
+
+    return api.app
+
+# For running directly
+if __name__ == &quot;__main__&quot;:
+    import uvicorn
+
+    app = create_api()
+    uvicorn.run(app, host=&quot;0.0.0.0&quot;, port=8000)
+&quot;&quot;&quot;
+ANCHOR_END: module_api
+</code></pre>
+<pre><code>
+## Configuration Management
+
+### Module Configuration
+```python
+&quot;&quot;&quot;
+ANCHOR: module_config
+&quot;&quot;&quot;
+import os
+from typing import Dict, Any
+import yaml
+from pydantic import BaseSettings, validator
+
+class ModuleSettings(BaseSettings):
+    &quot;&quot;&quot;Module settings with validation.&quot;&quot;&quot;
+
+    # Basic settings
+    module_name: str = &quot;my-blux-module&quot;
+    module_version: str = &quot;1.0.0&quot;
+    environment: str = &quot;development&quot;
+
+    # BLUX integration
+    blux_lite_host: str = &quot;localhost:50051&quot;
+    blux_guard_host: str = &quot;localhost:50052&quot;
+    blux_reg_host: str = &quot;localhost:50050&quot;
+
+    # Performance
+    max_concurrent_tasks: int = 10
+    task_timeout_seconds: int = 300
+
+    # Security
+    enable_authentication: bool = True
+    audit_level: str = &quot;detailed&quot;
+
+    # Custom settings
+    analysis_cache_size: int = 1000
+    enable_advanced_analytics: bool = False
+
+    class Config:
+        env_prefix = &quot;BLUX_MODULE_&quot;
+        case_sensitive = False
+
+    @validator('environment')
+    def validate_environment(cls, v):
+        allowed = ['development', 'staging', 'production']
+        if v not in allowed:
+            raise ValueError(f'Environment must be one of {allowed}')
+        return v
+
+    @validator('audit_level')
+    def validate_audit_level(cls, v):
+        allowed = ['none', 'basic', 'detailed', 'verbose']
+        if v not in allowed:
+            raise ValueError(f'Audit level must be one of {allowed}')
+        return v
+
+class ConfigManager:
+    &quot;&quot;&quot;Manages module configuration.&quot;&quot;&quot;
+
+    def __init__(self, config_path: str = None):
+        self.config_path = config_path
+        self.settings = ModuleSettings()
+        self.custom_config: Dict[str, Any] = {}
+
+    def load_from_file(self, file_path: str) -&gt; None:
+        &quot;&quot;&quot;Load configuration from YAML file.&quot;&quot;&quot;
+        with open(file_path, 'r') as f:
+            file_config = yaml.safe_load(f)
+            self.custom_config.update(file_config)
+
+    def get(self, key: str, default: Any = None) -&gt; Any:
+        &quot;&quot;&quot;Get configuration value.&quot;&quot;&quot;
+        # Check environment variables first
+        env_key = f&quot;BLUX_MODULE_{key.upper()}&quot;
+        if env_key in os.environ:
+            return os.environ[env_key]
+
+        # Check custom config
+        if key in self.custom_config:
+            return self.custom_config[key]
+
+        # Check settings
+        if hasattr(self.settings, key):
+            return getattr(self.settings, key)
+
+        return default
+
+    def to_dict(self) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Convert configuration to dictionary.&quot;&quot;&quot;
+        config_dict = self.settings.dict()
+        config_dict.update(self.custom_config)
+        return config_dict
+
+# Usage example
+def setup_module_config() -&gt; ConfigManager:
+    &quot;&quot;&quot;Setup module configuration.&quot;&quot;&quot;
+    config = ConfigManager()
+
+    # Load from file if exists
+    if os.path.exists('config/module.yaml'):
+        config.load_from_file('config/module.yaml')
+
+    # Override with environment variables
+    # (handled automatically by pydantic)
+
+    return config
+&quot;&quot;&quot;
+ANCHOR_END: module_config
+</code></pre>
+<p>Testing Custom Modules</p>
+<p>Comprehensive Test Suite</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+ANCHOR: module_tests
+&quot;&quot;&quot;
+import pytest
+import asyncio
+from unittest.mock import AsyncMock, patch, MagicMock
+import sys
+import os
+
+# Add module to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+from src.my_blux_module.core import BLUXModule, ModuleConfig, ModuleStatus
+from src.my_blux_module.specialized import DataAnalysisModule
+
+class TestBLUXModule:
+    &quot;&quot;&quot;Test base BLUX module functionality.&quot;&quot;&quot;
+
+    @pytest.fixture
+    def module_config(self):
+        &quot;&quot;&quot;Create test module configuration.&quot;&quot;&quot;
+        return ModuleConfig(
+            name=&quot;test-module&quot;,
+            version=&quot;1.0.0&quot;,
+            max_concurrent_tasks=2
+        )
+
+    @pytest.fixture
+    async def blux_module(self, module_config):
+        &quot;&quot;&quot;Create test module instance.&quot;&quot;&quot;
+        module = BLUXModule(module_config)
+        yield module
+        # Cleanup
+        for task in module.active_tasks.values():
+            task.cancel()
+
+    @pytest.mark.asyncio
+    async def test_module_initialization(self, blux_module, module_config):
+        &quot;&quot;&quot;Test module initialization.&quot;&quot;&quot;
+        await blux_module.initialize()
+
+        assert blux_module.status == ModuleStatus.READY
+        assert blux_module.config == module_config
+
+    @pytest.mark.asyncio
+    async def test_capabilities(self, blux_module):
+        &quot;&quot;&quot;Test capabilities reporting.&quot;&quot;&quot;
+        capabilities = blux_module.get_capabilities()
+
+        assert isinstance(capabilities, dict)
+        assert 'data_processing' in capabilities
+        assert 'audit_integration' in capabilities
+
+    @pytest.mark.asyncio
+    async def test_health_check(self, blux_module):
+        &quot;&quot;&quot;Test health check.&quot;&quot;&quot;
+        await blux_module.initialize()
+        health = await blux_module.health_check()
+
+        assert health['status'] == 'ready'
+        assert health['module'] == 'test-module'
+        assert health['version'] == '1.0.0'
+
+class TestDataAnalysisModule:
+    &quot;&quot;&quot;Test data analysis module functionality.&quot;&quot;&quot;
+
+    @pytest.fixture
+    async def analysis_module(self):
+        &quot;&quot;&quot;Create test analysis module.&quot;&quot;&quot;
+        config = ModuleConfig(
+            name=&quot;test-analysis-module&quot;,
+            version=&quot;1.0.0&quot;
+        )
+        module = DataAnalysisModule(config)
+        await module.initialize()
+        yield module
+
+        # Cleanup
+        for task in module.active_tasks.values():
+            task.cancel()
+
+    @pytest.mark.asyncio
+    async def test_statistical_analysis(self, analysis_module):
+        &quot;&quot;&quot;Test statistical analysis.&quot;&quot;&quot;
+        test_data = {&quot;values&quot;: [1, 2, 3, 4, 5]}
+        result = await analysis_module._statistical_analysis(test_data, {})
+
+        assert result['mean'] == 3.0
+        assert result['min'] == 1
+        assert result['max'] == 5
+        assert result['count'] == 5
+
+    @pytest.mark.asyncio
+    async def test_pattern_analysis(self, analysis_module):
+        &quot;&quot;&quot;Test pattern analysis.&quot;&quot;&quot;
+        increasing_data = {&quot;values&quot;: [1, 2, 3, 4, 5]}
+        result = await analysis_module._pattern_analysis(increasing_data, {})
+
+        assert &quot;increasing_sequence&quot; in result['patterns_detected']
+        assert result['pattern_count'] == 1
+
+    @pytest.mark.asyncio
+    async def test_trend_analysis(self, analysis_module):
+        &quot;&quot;&quot;Test trend analysis.&quot;&quot;&quot;
+        increasing_data = {&quot;values&quot;: [1, 2, 3, 4, 5]}
+        result = await analysis_module._trend_analysis(increasing_data, {})
+
+        assert result['trend'] == 'increasing'
+        assert result['change_percentage'] == 400.0  # (5-1)/1 * 100
+
+    @pytest.mark.asyncio
+    async def test_full_analysis_workflow(self, analysis_module):
+        &quot;&quot;&quot;Test complete analysis workflow.&quot;&quot;&quot;
+        task_data = {
+            &quot;analysis_type&quot;: &quot;statistical&quot;,
+            &quot;data&quot;: {&quot;values&quot;: [10, 20, 30, 40, 50]},
+            &quot;parameters&quot;: {}
+        }
+
+        result = await analysis_module.process_task(task_data)
+
+        assert result['analysis_type'] == 'statistical'
+        assert 'result' in result
+        assert 'metadata' in result
+        assert result['metadata']['data_points'] == 5
+
+# Integration tests
+@pytest.mark.integration
+class TestModuleIntegration:
+    &quot;&quot;&quot;Integration tests for module with BLUX ecosystem.&quot;&quot;&quot;
+
+    @pytest.mark.asyncio
+    async def test_module_registration(self):
+        &quot;&quot;&quot;Test module registration with BLUX Lite.&quot;&quot;&quot;
+        # This would test actual registration with a test BLUX instance
+        pass
+
+    @pytest.mark.asyncio 
+    async def test_audit_integration(self):
+        &quot;&quot;&quot;Test audit system integration.&quot;&quot;&quot;
+        # This would test audit recording with blux-guard
+        pass
+
+# Mock testing for external dependencies
+@pytest.mark.asyncio
+async def test_with_mocked_dependencies():
+    &quot;&quot;&quot;Test with mocked BLUX services.&quot;&quot;&quot;
+    with patch('aiohttp.ClientSession') as mock_session:
+        # Setup mock responses
+        mock_response = AsyncMock()
+        mock_response.json.return_value = {&quot;status&quot;: &quot;registered&quot;}
+        mock_session.post.return_value.__aenter__.return_value = mock_response
+
+        # Test module initialization
+        config = ModuleConfig(name=&quot;test-module&quot;)
+        module = BLUXModule(config)
+
+        await module._register_module()
+
+        # Verify mock was called
+        mock_session.post.assert_called_once()
+
+# Performance tests
+@pytest.mark.performance
+class TestModulePerformance:
+    &quot;&quot;&quot;Performance tests for the module.&quot;&quot;&quot;
+
+    @pytest.mark.asyncio
+    async def test_concurrent_processing(self):
+        &quot;&quot;&quot;Test processing multiple tasks concurrently.&quot;&quot;&quot;
+        config = ModuleConfig(
+            name=&quot;perf-test-module&quot;,
+            max_concurrent_tasks=5
+        )
+        module = DataAnalysisModule(config)
+        await module.initialize()
+
+        # Submit multiple tasks
+        tasks = []
+        for i in range(10):
+            task_data = {
+                &quot;analysis_type&quot;: &quot;statistical&quot;,
+                &quot;data&quot;: {&quot;values&quot;: list(range(i, i + 10))},
+                &quot;parameters&quot;: {}
+            }
+            tasks.append(module.process_task(task_data))
+
+        # Process concurrently
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Verify all tasks completed
+        assert len(results) == 10
+        assert all(not isinstance(r, Exception) for r in results)
+
+        # Cleanup
+        for task in module.active_tasks.values():
+            task.cancel()
+
+# Configuration tests
+def test_configuration_validation():
+    &quot;&quot;&quot;Test configuration validation.&quot;&quot;&quot;
+    from src.my_blux_module.config import ModuleSettings
+
+    # Test valid configuration
+    valid_config = ModuleSettings(
+        module_name=&quot;test-module&quot;,
+        environment=&quot;development&quot;,
+        audit_level=&quot;detailed&quot;
+    )
+    assert valid_config.module_name == &quot;test-module&quot;
+
+    # Test invalid configuration
+    with pytest.raises(ValueError):
+        ModuleSettings(environment=&quot;invalid&quot;)
+
+    with pytest.raises(ValueError):
+        ModuleSettings(audit_level=&quot;invalid&quot;)
+&quot;&quot;&quot;
+ANCHOR_END: module_tests
+</code></pre>
+<p>Deployment Configuration</p>
+<p>Docker Configuration</p>
+<pre><code class="language-dockerfile">&quot;&quot;&quot;
+ANCHOR: docker_config
+&quot;&quot;&quot;
+# Dockerfile for BLUX module
+FROM python:3.9-slim
+
+# Install system dependencies
+RUN apt-get update &amp;&amp; apt-get install -y \
+    gcc \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN useradd -m -u 1000 blux
+USER blux
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY --chown=blux:blux requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY --chown=blux:blux src/ ./src/
+COPY --chown=blux:blux scripts/ ./scripts/
+COPY --chown=blux:blux manifests/ ./manifests/
+
+# Create necessary directories
+RUN mkdir -p logs data
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Start command
+CMD [&quot;python&quot;, &quot;-m&quot;, &quot;src.my_blux_module.api&quot;]
+&quot;&quot;&quot;
+ANCHOR_END: docker_config
+</code></pre>
+<p>Kubernetes Deployment</p>
+<pre><code class="language-yaml">&quot;&quot;&quot;
+ANCHOR: kubernetes_config
+&quot;&quot;&quot;
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-blux-module
+  labels:
+    app: my-blux-module
+    component: processor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-blux-module
+  template:
+    metadata:
+      labels:
+        app: my-blux-module
+      annotations:
+        prometheus.io/scrape: &quot;true&quot;
+        prometheus.io/port: &quot;8000&quot;
+        prometheus.io/path: &quot;/metrics&quot;
+    spec:
+      containers:
+      - name: module
+        image: my-registry/blux-module:1.0.0
+        ports:
+        - containerPort: 8000
+        env:
+        - name: BLUX_ENV
+          value: &quot;production&quot;
+        - name: BLUX_LITE_HOST
+          value: &quot;blux-lite.blux.svc.cluster.local&quot;
+        - name: BLUX_GUARD_HOST
+          value: &quot;blux-guard.blux.svc.cluster.local&quot;
+        - name: BLUX_MODULE_MAX_CONCURRENT_TASKS
+          value: &quot;10&quot;
+        resources:
+          requests:
+            memory: &quot;256Mi&quot;
+            cpu: &quot;250m&quot;
+          limits:
+            memory: &quot;512Mi&quot;
+            cpu: &quot;500m&quot;
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-blux-module
+spec:
+  selector:
+    app: my-blux-module
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+&quot;&quot;&quot;
+ANCHOR_END: kubernetes_config
+</code></pre>
+<p>Integration with BLUX Ecosystem</p>
+<p>Service Discovery</p>
+<pre><code class="language-python">&quot;&quot;&quot;
+ANCHOR: service_discovery
+&quot;&quot;&quot;
+import aiohttp
+import asyncio
+from typing import Dict, Any, Optional
+
+class BLUXServiceDiscovery:
+    &quot;&quot;&quot;
+    Handles service discovery within BLUX ecosystem.
+    Finds and connects to other BLUX services.
+    &quot;&quot;&quot;
+
+    def __init__(self, blux_lite_host: str):
+        self.blux_lite_host = blux_lite_host
+        self.service_cache: Dict[str, Dict] = {}
+        self.cache_ttl = 300  # 5 minutes
+        self.last_update: Dict[str, float] = {}
+
+    async def discover_services(self) -&gt; Dict[str, Dict]:
+        &quot;&quot;&quot;Discover all available BLUX services.&quot;&quot;&quot;
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    f&quot;http://{self.blux_lite_host}/v1/services&quot;,
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as response:
+                    if response.status == 200:
+                        services = await response.json()
+                        self.service_cache = services
+                        self.last_update['services'] = asyncio.get_event_loop().time()
+                        return services
+                    else:
+                        raise Exception(f&quot;Service discovery failed: {response.status}&quot;)
+
+        except Exception as e:
+            print(f&quot;Service discovery error: {e}&quot;)
+            # Return cached services if available
+            if self.service_cache and self._is_cache_valid('services'):
+                return self.service_cache
+            raise
+
+    async def find_service(self, service_name: str) -&gt; Optional[Dict]:
+        &quot;&quot;&quot;Find specific service by name.&quot;&quot;&quot;
+        services = await self.discover_services()
+        return services.get(service_name)
+
+    async def get_service_endpoint(self, service_name: str, endpoint: str) -&gt; str:
+        &quot;&quot;&quot;Get full endpoint URL for a service.&quot;&quot;&quot;
+        service = await self.find_service(service_name)
+        if service and 'endpoints' in service:
+            base_url = service.get('endpoint', f'http://{service_name}')
+            return f&quot;{base_url}/{endpoint.lstrip('/')}&quot;
+        else:
+            raise Exception(f&quot;Service {service_name} not found or no endpoints&quot;)
+
+    def _is_cache_valid(self, cache_key: str) -&gt; bool:
+        &quot;&quot;&quot;Check if cache is still valid.&quot;&quot;&quot;
+        if cache_key not in self.last_update:
+            return False
+
+        current_time = asyncio.get_event_loop().time()
+        return (current_time - self.last_update[cache_key]) &lt; self.cache_ttl
+
+# Usage in module
+async def setup_service_discovery(module: BLUXModule) -&gt; BLUXServiceDiscovery:
+    &quot;&quot;&quot;Setup service discovery for module.&quot;&quot;&quot;
+    discovery = BLUXServiceDiscovery(module.config.blux_lite_host)
+
+    try:
+        services = await discovery.discover_services()
+        print(f&quot;Discovered {len(services)} BLUX services&quot;)
+        return discovery
+    except Exception as e:
+        print(f&quot;Service discovery failed: {e}&quot;)
+        # Continue with default configuration
+        return discovery
+&quot;&quot;&quot;
+ANCHOR_END: service_discovery
+</code></pre>
+<hr />
+<p>Custom modules extend the constellation, each bringing unique light to the whole.  (( • ))</p>
+<p>Next Steps:</p>
+<ol>
+<li>Implement your module logic in the process_task method</li>
+<li>Configure your module in manifests/module.manifest.json</li>
+<li>Write comprehensive tests for your functionality</li>
+<li>Deploy and integrate with your BLUX ecosystem</li>
+</ol>
+<p>Remember to follow BLUX principles: Reflection &gt; Reaction, Coordination &gt; Concentration, Coherence &gt; Complexity, Principles &gt; Preferences.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Outer-Void/blux-ecosystem" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
