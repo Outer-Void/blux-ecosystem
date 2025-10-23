@@ -1,3 +1,4 @@
+<!-- DO NOT EDIT: generated from README.md via render_index_from_readme.py -->
 <p align="center">
   <img src="/assets/blux-eco-logo.png" alt="BLUX Ecosystem" width="260">
 </p>
@@ -187,14 +188,14 @@ bluxq status --format table
 bluxq guard audit --tail 50
 ```
 
-Explore the full CLI surface in [`docs/modules/blux-quantum/README.md`](docs/modules/blux-quantum/README.md).
+Explore the full CLI surface in [`docs/modules/blux-quantum/README.md`](modules/blux-quantum/README.md).
 
 ## 📚 Enterprise Documentation Hub
 
-- **Vision, Architecture, Operations:** curated under [`docs/`](docs/) with MkDocs-ready content.
+- **Vision, Architecture, Operations:** curated under [`docs/`](./) with MkDocs-ready content.
 - **Module Guides:** each module has dedicated pages under `docs/modules/<module>/` with overview, architecture, integration, operations, security, configuration, and command references.
-- **Governance & Doctrine:** see [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) and [`docs/modules/blux-doctrine/`](docs/modules/blux-doctrine/) for policy stewardship.
-- **Change Tracking:** hub-level updates live in [`docs/CHANGELOG.md`](docs/CHANGELOG.md); module change logs remain in their home repos.
+- **Governance & Doctrine:** see [`docs/GOVERNANCE.md`](GOVERNANCE.md) and [`docs/modules/blux-doctrine/`](modules/blux-doctrine/) for policy stewardship.
+- **Change Tracking:** hub-level updates live in [`docs/CHANGELOG.md`](CHANGELOG.md); module change logs remain in their home repos.
 
 Serve the docs locally with:
 
@@ -216,7 +217,7 @@ mkdocs serve
 
 ## 🌐 Documentation Site Pipeline
 
-GitHub Actions workflow [`docs.yml`](.github/workflows/docs.yml) builds the MkDocs Material site, publishes it to GitHub Pages, and runs the documentation automation scripts on every push to `main`.
+GitHub Actions workflow [`docs.yml`](../.github/workflows/docs.yml) builds the MkDocs Material site, publishes it to GitHub Pages, and runs the documentation automation scripts on every push to `main`.
 
 ## 📁 Repository File Tree
 
@@ -269,7 +270,6 @@ blux-ecosystem/
 │   │   └── custom-module.md
 │   ├── governance.md
 │   ├── GOVERNANCE.md
-│   ├── index.md
 │   ├── INSTALL.md
 │   ├── links.md
 │   ├── modules
